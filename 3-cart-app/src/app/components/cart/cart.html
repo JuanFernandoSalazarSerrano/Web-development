@@ -9,11 +9,11 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       @for (item of items; track $index) {
 
-        <!-- <product-card
-          [product]="product"
-        /> -->
-        <H1>XD LOLOLO</H1>
+        <product-card
+          [product]="item.product"
+        />
       }
+
     </div>
 
     <!-- Repeat <li> for more products -->
