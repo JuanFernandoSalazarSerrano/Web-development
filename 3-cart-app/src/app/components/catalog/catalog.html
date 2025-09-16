@@ -1,26 +1,16 @@
 <div class="max-w-2xl mx-auto mt-8 bg-white rounded-xl shadow-lg p-6">
   <div class="flex items-center justify-between mb-6">
-    <h3 class="text-2xl font-bold text-gray-800">Your Cart</h3>
-    <button class="text-sm text-red-500 hover:underline">Clear Cart</button>
+    <h3 class="text-2xl font-bold text-gray-800">Product Catalog</h3>
   </div>
 
-  <ul class="divide-y divide-gray-200">
+<ul class="divide-y divide-gray-200">
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      @for (product of products; track $index) {
-        <product-card
-          [product]="product"
-        />
-      }
-    </div>
-
-    <!-- Repeat <li> for more products -->
-  </ul>
-  <div class="mt-6 flex items-center justify-between">
-    <span class="text-xl font-bold text-gray-800">Total:</span>
-    <span class="text-xl font-bold text-blue-600">$19.99</span>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    @for (product of products; track $index) {
+      <product-card
+        [product]="product"
+      />
+    }
   </div>
-  <button class="mt-6 w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-150">
-    Checkout
-  </button>
-</div>
+
+</ul>
