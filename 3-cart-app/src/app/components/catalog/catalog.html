@@ -9,6 +9,7 @@
     @for (product of products; track $index) {
       <product-card
         [product]="product"
+        (productEventEmitter)="onClickAddCart($event)"
       />
     }
   </div>
