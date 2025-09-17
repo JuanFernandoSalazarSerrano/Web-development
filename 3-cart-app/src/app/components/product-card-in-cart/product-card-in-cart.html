@@ -19,7 +19,7 @@
     <span class="text-gray-600 font-medium">Total</span>
     <span class="text-xl font-bold text-blue-600">${{item.quantity * item.product.price}}</span>
   </div>
-  <button class="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center mt-2" aria-label="Remove product">
+  <button (click)="onClickDeleteCart(item.product)" class="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 flex items-center justify-center mt-2" aria-label="Remove product">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M8 6v12a2 2 0 002 2h4a2 2 0 002-2V6m-6 0V4a2 2 0 012-2h2a2 2 0 012 2v2"/>
     </svg>

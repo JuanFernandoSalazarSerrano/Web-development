@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CartItem } from '../../models/cartItem';
 import { ProductCardInCart } from '../product-card-in-cart/product-card-in-cart';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'cart',
@@ -10,6 +11,11 @@ import { ProductCardInCart } from '../product-card-in-cart/product-card-in-cart'
 export class Cart {
 
   @Input() items: CartItem[] = [];
+
+  @Output() productEventEmitter: EventEmitter<Product> = new EventEmitter<Product>();
+  onClickDeleteCart(product: Product) {
+    this.productEventEmitter.emit(product);
+  }
 
   calculateTotal(items: CartItem[]): number {
 

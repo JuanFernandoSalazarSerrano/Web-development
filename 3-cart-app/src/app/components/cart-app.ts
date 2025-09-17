@@ -53,4 +53,10 @@ export class CartApp implements OnInit {
     }
 
   }
+
+
+  onDeleteCart(product: Product) {
+    this.items.filter(item => item.product.id !== product.id);
+    this.items = this.items.filter(item => item.product.id !== product.id);
+  }
 }

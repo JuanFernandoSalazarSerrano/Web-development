@@ -12,12 +12,12 @@
 
 @if (items.length != 0) {
 
-  <cart
-
+<cart
   [items]="items"
-  class="col-span-1">
+  class="col-span-1"
+  (productEventEmitter)="onDeleteCart($event)">
+</cart>
 
-  </cart>
 }
 @else {
 <div class="col-span-1 flex flex-col items-center justify-center p-6 bg-yellow-50 border border-yellow-300 rounded-lg shadow-md">

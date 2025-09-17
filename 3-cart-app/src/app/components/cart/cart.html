@@ -11,6 +11,8 @@
 
         <product-card-in-cart
           [item]="item"
+          (productEventEmitter)="onClickDeleteCart($event)"
+
         />
       }
 
