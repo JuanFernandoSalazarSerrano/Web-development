@@ -27,7 +27,30 @@ export class CartApp implements OnInit {
 
   onAddCart(product: Product) {
 
-    this.items = [...this.items, { product: {...product}, quantity: this.quantity }];
+// The find() method returns the value of the first element that passes a test.
+// The find() method executes a function for each array element.
+
+    const hasItem = this.items.find(item => item.product.id === product.id);
+
+// In your code, item is a variable representing each element of the items array.
+
+    if (hasItem) {
+
+      this.items = this.items.map(item => {
+
+        if (item.product.id === product.id){
+
+          return {
+            ...item,
+            quantity: item.quantity + 1
+          }
+        }
+        return item
+      })
+    }
+    else{
+      this.items = [...this.items, { product: {...product}, quantity: this.quantity }];
+    }
 
   }
 }
