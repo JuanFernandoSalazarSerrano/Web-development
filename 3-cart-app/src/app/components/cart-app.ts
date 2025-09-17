@@ -16,7 +16,7 @@ export class CartApp implements OnInit {
 
   items: CartItem[] = [];
 
-  quantity: number = 0;
+  quantity: number = 1;
 
   constructor(private service: ProductService) {
 

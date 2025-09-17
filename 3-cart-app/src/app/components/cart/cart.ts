@@ -11,4 +11,16 @@ export class Cart {
 
   @Input() items: CartItem[] = [];
 
+  calculateTotal(items: CartItem[]): number {
+
+// sum is the accumulator (starts at 0).
+// item is each CartItem in the items array.
+// For each item, it adds item.quantity * item.product.price to sum.
+// The final result is the total price of all items in the cart.
+// Summary:
+// reduce lets you combine all elements of an array into a single value by applying a function to each element and accumulating the result.
+
+    return items.reduce((sum, item) => sum + (item.quantity * item.product.price), 0);
+
+  }
 }
