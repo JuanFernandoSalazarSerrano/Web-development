@@ -5,16 +5,12 @@
   <span class="text-sm text-gray-500 mb-2">Description: {{product.description}}</span>
 
 
-  <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-3"
+  <button class="px-3 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 mt-3 flex items-center justify-center"
     (click)="onClickAddCart()"
+    aria-label="Add to cart"
   >
-    Add product to Shopping Cart
-  </button>
-
-  <!-- arrow should only be seen in cart component -->
-  <!-- <button class="text-gray-400 hover:text-red-500 mt-2">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7a1 1 0 00.9 1.3h12.2a1 1 0 00.9-1.3L17 13M7 13V6a1 1 0 011-1h9a1 1 0 011 1v7" />
     </svg>
-  </button> -->
+  </button>
 </div>

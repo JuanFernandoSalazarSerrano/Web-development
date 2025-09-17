@@ -12,9 +12,24 @@ export class Cart {
 
   @Input() items: CartItem[] = [];
 
+  @Output() productEventEmitterClearCart: EventEmitter<Product> = new EventEmitter<Product>();
+  onClickClearCart() {
+    this.productEventEmitterClearCart.emit();
+  }
+
   @Output() productEventEmitter: EventEmitter<Product> = new EventEmitter<Product>();
   onClickDeleteCart(product: Product) {
     this.productEventEmitter.emit(product);
+  }
+
+  @Output() productEventEmitterIncrease: EventEmitter<Product> = new EventEmitter<Product>();
+  onClickAddCart(product: Product) {
+    this.productEventEmitterIncrease.emit(product);
+  }
+
+  @Output() productEventEmitterDecrease: EventEmitter<Product> = new EventEmitter<Product>();
+  onClickDecreaseCart(product: Product) {
+    this.productEventEmitterDecrease.emit(product);
   }
 
   calculateTotal(items: CartItem[]): number {
