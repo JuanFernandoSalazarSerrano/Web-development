@@ -16,11 +16,18 @@ export class CartApp implements OnInit {
 
   items: CartItem[] = [];
 
+  quantity: number = 0;
 
   constructor(private service: ProductService) {
 
    }
   ngOnInit(): void {
     this.products = this.service.findAll()
+  }
+
+  onAddCart(product: Product) {
+
+    this.items = [...this.items, { product: {...product}, quantity: this.quantity }];
+
   }
 }

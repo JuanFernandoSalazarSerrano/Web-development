@@ -9,8 +9,8 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       @for (item of items; track $index) {
 
-        <product-card
-          [product]="item.product"
+        <product-card-in-cart
+          [item]="item"
         />
       }
 

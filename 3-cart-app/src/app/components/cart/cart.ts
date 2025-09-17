@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { CartItem } from '../../models/cartItem';
-import { ProductCard } from '../product-card/product-card';
+import { ProductCardInCart } from '../product-card-in-cart/product-card-in-cart';
 
 @Component({
   selector: 'cart',
-  imports: [ProductCard],
+  imports: [ProductCardInCart],
   templateUrl: './cart.html',
 })
 export class Cart {
