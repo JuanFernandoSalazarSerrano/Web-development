@@ -13,6 +13,8 @@ export class SharingData {
 
   private _productEventEmitterClearCart: EventEmitter<void> = new EventEmitter<void>();
 
+  private _productEventEmitterDecrease: EventEmitter<Product> = new EventEmitter<Product>();
+
   constructor() {
 
   }
@@ -31,6 +33,10 @@ export class SharingData {
 
   public get productEventEmitterClearCart(){
     return this._productEventEmitterClearCart;
+  }
+
+    public get productEventEmitterDecrease(): EventEmitter<Product> {
+    return this._productEventEmitterDecrease;
   }
 
 }

@@ -2,8 +2,6 @@ import { SharingData } from './../services/sharing-data';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/productService';
 import { Product } from '../models/product';
-import { Catalog } from './catalog/catalog';
-import { Cart } from './cart/cart';
 import { CartItem } from '../models/cartItem';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule} from '@angular/router';
@@ -38,6 +36,8 @@ export class CartApp implements OnInit {
     this.SharingDataService.productEventEmitterClearCart.subscribe(() => {
       this.clearCart()
   });
+
+  this.onDecreaseQuantityCart();
 
   }
 
@@ -116,7 +116,9 @@ export class CartApp implements OnInit {
     sessionStorage.setItem('cart', JSON.stringify(this.items));
   }
 
-  onDecreaseQuantityCart(product: Product) {
+  onDecreaseQuantityCart():void {
+
+    this.SharingDataService.productEventEmitterDecrease.subscribe(product => {
 
 // The find() method returns the value of the first element that passes a test.
 // The find() method executes a function for each array element.
@@ -150,5 +152,14 @@ export class CartApp implements OnInit {
     }
     this.saveSession()
 
-  }
+
+    this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
+
+    this.router.navigate(['/cart'],{state: {items:this.items}})
+
+  })
+  })
+
+
+}
 }

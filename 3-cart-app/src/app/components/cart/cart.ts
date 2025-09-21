@@ -31,9 +31,8 @@ export class Cart {
     this.SharingDataService.ProductEventEmitter.emit(product)
   }
 
-  productEventEmitterDecrease: EventEmitter<Product> = new EventEmitter<Product>();
   onClickDecreaseCart(product: Product) {
-    this.productEventEmitterDecrease.emit(product);
+    this.SharingDataService.productEventEmitterDecrease.emit(product);
   }
 
   calculateTotal(items: CartItem[]): number {
