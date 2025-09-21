@@ -29,9 +29,15 @@ export class CartApp implements OnInit {
 
   ngOnInit(): void {
     this.products = this.service.findAll()
+
     this.items = JSON.parse(sessionStorage.getItem('cart')!) || [];
+
     this.onDeleteCart();
     this.onAddCart();
+
+    this.SharingDataService.productEventEmitterClearCart.subscribe(() => {
+      this.clearCart()
+  });
 
   }
 
@@ -90,13 +96,20 @@ export class CartApp implements OnInit {
       return this.items
 
     })
-
   }
 
   clearCart(): CartItem[]{
     this.items = []
     this.saveSession()
+
+    this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
+
+        this.router.navigate(['/cart'],{state: {items:this.items}})
+
+      })
+
     return this.items
+
   }
 
   saveSession(): void{

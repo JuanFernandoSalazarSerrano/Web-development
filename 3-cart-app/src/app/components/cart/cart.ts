@@ -18,9 +18,8 @@ export class Cart {
     this.items = this.router.currentNavigation()?.extras.state!['items']
   }
 
-  productEventEmitterClearCart: EventEmitter<Product> = new EventEmitter<Product>();
   onClickClearCart() {
-    this.productEventEmitterClearCart.emit();
+    this.SharingDataService.productEventEmitterClearCart.emit()
   }
 
   onClickDeleteCart(id: number) {
@@ -29,7 +28,6 @@ export class Cart {
 
   // this could also be called, onClickIncreaseCart, for the right arrow increment i used in both buttons, add to cart and the > arrow button
   onClickAddCart(product: Product) {
-
     this.SharingDataService.ProductEventEmitter.emit(product)
   }
 

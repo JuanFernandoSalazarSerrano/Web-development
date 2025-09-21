@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Product } from '../models/product';
+import { CartItem } from '../models/cartItem';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class SharingData {
 
   private _ProductEventEmitter: EventEmitter<Product> = new EventEmitter();
 
+  private _productEventEmitterClearCart: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {
 
@@ -25,6 +27,10 @@ export class SharingData {
 
     return this._ProductEventEmitter
 
+  }
+
+  public get productEventEmitterClearCart(){
+    return this._productEventEmitterClearCart;
   }
 
 }
