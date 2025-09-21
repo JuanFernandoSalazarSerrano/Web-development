@@ -33,12 +33,12 @@ export class CartApp implements OnInit {
     this.onDeleteCart();
     this.onAddCart();
 
-    console.log(this.products)
   }
 
   onAddCart(): void {
 
     this.SharingDataService.ProductEventEmitter.subscribe(product => {
+
 
 // The find() method returns the value of the first element that passes a test.
 // The find() method executes a function for each array element.
@@ -65,13 +65,19 @@ export class CartApp implements OnInit {
       this.items = [...this.items, { product: {...product}, quantity: this.quantity }];
     }
     this.saveSession()
-    this.router.navigate(['/cart'],{state: {items:this.items}})
+
+          this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
+
+        this.router.navigate(['/cart'],{state: {items:this.items}})
+
+      })
   })
 
   }
 
   onDeleteCart(): void {
-    this.SharingDataService.idProductEventEmitter.subscribe(id => {
+
+      this.SharingDataService.idProductEventEmitter.subscribe(id => {
       this.items = this.items.filter(item => item.product.id !== id);
       this.saveSession()
 

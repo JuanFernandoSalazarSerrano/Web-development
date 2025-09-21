@@ -10,6 +10,7 @@ export class SharingData {
 
   private _ProductEventEmitter: EventEmitter<Product> = new EventEmitter();
 
+
   constructor() {
 
   }

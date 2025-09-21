@@ -28,9 +28,9 @@ export class Cart {
   }
 
   // this could also be called, onClickIncreaseCart, for the right arrow increment i used in both buttons, add to cart and the > arrow button
-  productEventEmitterIncrease: EventEmitter<Product> = new EventEmitter<Product>();
   onClickAddCart(product: Product) {
-    this.productEventEmitterIncrease.emit(product);
+
+    this.SharingDataService.ProductEventEmitter.emit(product)
   }
 
   productEventEmitterDecrease: EventEmitter<Product> = new EventEmitter<Product>();

@@ -19,6 +19,5 @@ export class Catalog {
 
     onClickAddCart(product: Product) {
       this.SharingService.ProductEventEmitter.emit(product)
-      console.log('penis')
     }
 }
