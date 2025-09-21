@@ -4,6 +4,18 @@
     <button (click)="onClickClearCart()" class="text-sm text-red-500 hover:underline">Clear Cart</button>
   </div>
 
+    @if (items.length == 0) {
+
+      <div class="col-span-1 flex flex-col items-center justify-center p-6 bg-yellow-50 border border-yellow-300 rounded-lg shadow-md">
+        <svg class="w-10 h-10 text-yellow-400 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+        </svg>
+        <span class="text-lg font-semibold text-yellow-800">Your cart is empty!</span>
+        <span class="text-sm text-yellow-700 mt-1">Don't miss out on our amazing products. Start shopping now!</span>
+        <a href="#" class="mt-4 px-4 py-2 bg-yellow-400 text-white font-bold rounded hover:bg-yellow-500 transition">Shop Now</a>
+      </div>
+  }
+
   <ul class="divide-y divide-gray-200">
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -30,4 +42,9 @@
   <button class="mt-6 w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-150">
     Checkout
   </button>
+
+
+
+
+
 </div>

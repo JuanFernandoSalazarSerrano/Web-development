@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SharingData } from './../../services/sharing-data';
+import { Component, EventEmitter} from '@angular/core';
 import { CartItem } from '../../models/cartItem';
 import { ProductCardInCart } from '../product-card-in-cart/product-card-in-cart';
 import { Product } from '../../models/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cart',
@@ -10,24 +12,28 @@ import { Product } from '../../models/product';
 })
 export class Cart {
 
-  @Input() items: CartItem[] = [];
+  items: CartItem[] = [];
 
-  @Output() productEventEmitterClearCart: EventEmitter<Product> = new EventEmitter<Product>();
+  constructor(private SharingDataService: SharingData, private router: Router){
+    this.items = this.router.currentNavigation()?.extras.state!['items']
+  }
+
+  productEventEmitterClearCart: EventEmitter<Product> = new EventEmitter<Product>();
   onClickClearCart() {
     this.productEventEmitterClearCart.emit();
   }
 
-  @Output() productEventEmitter: EventEmitter<Product> = new EventEmitter<Product>();
-  onClickDeleteCart(product: Product) {
-    this.productEventEmitter.emit(product);
+  onClickDeleteCart(id: number) {
+    this.SharingDataService.idProductEventEmitter.emit(id)
   }
 
-  @Output() productEventEmitterIncrease: EventEmitter<Product> = new EventEmitter<Product>();
+  // this could also be called, onClickIncreaseCart, for the right arrow increment i used in both buttons, add to cart and the > arrow button
+  productEventEmitterIncrease: EventEmitter<Product> = new EventEmitter<Product>();
   onClickAddCart(product: Product) {
     this.productEventEmitterIncrease.emit(product);
   }
 
-  @Output() productEventEmitterDecrease: EventEmitter<Product> = new EventEmitter<Product>();
+  productEventEmitterDecrease: EventEmitter<Product> = new EventEmitter<Product>();
   onClickDecreaseCart(product: Product) {
     this.productEventEmitterDecrease.emit(product);
   }

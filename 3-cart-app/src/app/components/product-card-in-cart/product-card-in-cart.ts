@@ -11,9 +11,9 @@ export class ProductCardInCart {
 
   @Input() item!: CartItem;
 
-  @Output() productEventEmitter: EventEmitter<Product> = new EventEmitter<Product>();
-    onClickDeleteCart(product: Product) {
-      this.productEventEmitter.emit(product);
+  @Output() productEventEmitter = new EventEmitter;
+    onClickDeleteCart(productId: number) {
+      this.productEventEmitter.emit(productId);
     }
 
   @Output() productEventEmitterIncrease: EventEmitter<Product> = new EventEmitter<Product>();

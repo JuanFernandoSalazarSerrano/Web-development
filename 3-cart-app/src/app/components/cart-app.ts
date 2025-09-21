@@ -1,3 +1,4 @@
+import { SharingData } from './../services/sharing-data';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/productService';
 import { Product } from '../models/product';
@@ -5,10 +6,11 @@ import { Catalog } from './catalog/catalog';
 import { Cart } from './cart/cart';
 import { CartItem } from '../models/cartItem';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'cart-app',
-  imports: [Catalog, Cart, CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './cart-app.html',
 })
 export class CartApp implements OnInit {
@@ -19,17 +21,24 @@ export class CartApp implements OnInit {
 
   quantity: number = 1;
 
-  showCart: boolean = false;
+  constructor(
+    private SharingDataService: SharingData,
+    private service: ProductService,
+    private router: Router) {
+  }
 
-  constructor(private service: ProductService) {
-
-   }
   ngOnInit(): void {
     this.products = this.service.findAll()
     this.items = JSON.parse(sessionStorage.getItem('cart')!) || [];
+    this.onDeleteCart();
+    this.onAddCart();
+
+    console.log(this.products)
   }
 
-  onAddCart(product: Product) {
+  onAddCart(): void {
+
+    this.SharingDataService.ProductEventEmitter.subscribe(product => {
 
 // The find() method returns the value of the first element that passes a test.
 // The find() method executes a function for each array element.
@@ -56,13 +65,26 @@ export class CartApp implements OnInit {
       this.items = [...this.items, { product: {...product}, quantity: this.quantity }];
     }
     this.saveSession()
+    this.router.navigate(['/cart'],{state: {items:this.items}})
+  })
 
   }
 
-  onDeleteCart(product: Product): CartItem[] {
-    this.items = this.items.filter(item => item.product.id !== product.id);
-    this.saveSession()
-    return this.items
+  onDeleteCart(): void {
+    this.SharingDataService.idProductEventEmitter.subscribe(id => {
+      this.items = this.items.filter(item => item.product.id !== id);
+      this.saveSession()
+
+      this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
+
+        this.router.navigate(['/cart'],{state: {items:this.items}})
+
+      })
+
+      return this.items
+
+    })
+
   }
 
   clearCart(): CartItem[]{
