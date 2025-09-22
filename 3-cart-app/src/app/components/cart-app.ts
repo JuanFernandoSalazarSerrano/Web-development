@@ -5,6 +5,7 @@ import { Product } from '../models/product';
 import { CartItem } from '../models/cartItem';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule} from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'cart-app',
@@ -26,6 +27,7 @@ export class CartApp implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.products = this.service.findAll()
 
     this.items = JSON.parse(sessionStorage.getItem('cart')!) || [];
@@ -44,6 +46,8 @@ export class CartApp implements OnInit {
   onAddCart(): void {
 
     this.SharingDataService.ProductEventEmitter.subscribe(product => {
+
+    Swal.fire({title:'Shopping', text: product.name + " ha sido agregado al carrito", icon: 'success'});
 
 
 // The find() method returns the value of the first element that passes a test.
@@ -77,14 +81,21 @@ export class CartApp implements OnInit {
         this.router.navigate(['/cart'],{state: {items:this.items}})
 
       })
-  })
 
+  })
   }
 
   onDeleteCart(): void {
 
       this.SharingDataService.idProductEventEmitter.subscribe(id => {
+
+      const removedItem = this.items.find(item => item.product.id === id);
       this.items = this.items.filter(item => item.product.id !== id);
+
+      if (removedItem) {
+        Swal.fire({title:'Shopping', text: removedItem.product.name + " ha sido eliminado del carrito", icon: 'error'});
+      }
+
       this.saveSession()
 
       this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
