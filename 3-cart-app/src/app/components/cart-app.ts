@@ -36,6 +36,7 @@ export class CartApp implements OnInit {
     this.onAddCart();
 
     this.SharingDataService.productEventEmitterClearCart.subscribe(() => {
+
       this.clearCart()
   });
 
@@ -47,8 +48,7 @@ export class CartApp implements OnInit {
 
     this.SharingDataService.ProductEventEmitter.subscribe(product => {
 
-    Swal.fire({title:'Shopping', text: product.name + " ha sido agregado al carrito", icon: 'success'});
-
+    Swal.fire({title:'Shopping', text: product.name + " has been added to the cart", icon: 'success'});
 
 // The find() method returns the value of the first element that passes a test.
 // The find() method executes a function for each array element.
@@ -93,7 +93,7 @@ export class CartApp implements OnInit {
       this.items = this.items.filter(item => item.product.id !== id);
 
       if (removedItem) {
-        Swal.fire({title:'Shopping', text: removedItem.product.name + " ha sido eliminado del carrito", icon: 'error'});
+        Swal.fire({title:'Shopping', text: removedItem.product.name + " has been deleted from the cart", icon: 'error'});
       }
 
       this.saveSession()
@@ -110,7 +110,12 @@ export class CartApp implements OnInit {
   }
 
   clearCart(): CartItem[]{
+
+
     this.items = []
+
+    Swal.fire({title:'Shopping', text:"You have emptied the cart", icon: 'info'});
+
     this.saveSession()
 
     this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
