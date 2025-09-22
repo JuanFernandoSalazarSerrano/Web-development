@@ -37,7 +37,13 @@ export class CartApp implements OnInit {
 
     this.SharingDataService.productEventEmitterClearCart.subscribe(() => {
 
+    if (this.items.length === 0){
+      Swal.fire({title:'Shopping', text:"The cart is already empty", icon: 'info'});
+    }
+    else{
       this.clearCart()
+    }
+
   });
 
   this.onDecreaseQuantityCart();
@@ -48,7 +54,6 @@ export class CartApp implements OnInit {
 
     this.SharingDataService.ProductEventEmitter.subscribe(product => {
 
-    Swal.fire({title:'Shopping', text: product.name + " has been added to the cart", icon: 'success'});
 
 // The find() method returns the value of the first element that passes a test.
 // The find() method executes a function for each array element.
@@ -62,7 +67,6 @@ export class CartApp implements OnInit {
       this.items = this.items.map(item => {
 
         if (item.product.id === product.id){
-
           return {
             ...item,
             quantity: item.quantity + 1
@@ -72,6 +76,7 @@ export class CartApp implements OnInit {
       })
     }
     else{
+      Swal.fire({title:'Shopping', text: product.name + " has been added to the cart", icon: 'success'});
       this.items = [...this.items, { product: {...product}, quantity: this.quantity }];
     }
     this.saveSession()
@@ -90,19 +95,39 @@ export class CartApp implements OnInit {
       this.SharingDataService.idProductEventEmitter.subscribe(id => {
 
       const removedItem = this.items.find(item => item.product.id === id);
-      this.items = this.items.filter(item => item.product.id !== id);
 
       if (removedItem) {
-        Swal.fire({title:'Shopping', text: removedItem.product.name + " has been deleted from the cart", icon: 'error'});
+
+        Swal.fire({
+
+          title: "Are you sure you want to delete this product from the cart?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+
+            this.items = this.items.filter(item => item.product.id !== id);
+
+            Swal.fire({title:'Shopping', text: removedItem.product.name + " has been deleted from the cart", icon: 'error'});
+
+            this.saveSession()
+
+            this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
+
+              this.router.navigate(['/cart'],{state: {items:this.items}})
+
+              })
+
+          }
+        });
+
       }
 
-      this.saveSession()
 
-      this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
-
-        this.router.navigate(['/cart'],{state: {items:this.items}})
-
-      })
 
       return this.items
 
@@ -111,8 +136,7 @@ export class CartApp implements OnInit {
 
   clearCart(): CartItem[]{
 
-
-    this.items = []
+    this.items = [];
 
     Swal.fire({title:'Shopping', text:"You have emptied the cart", icon: 'info'});
 
