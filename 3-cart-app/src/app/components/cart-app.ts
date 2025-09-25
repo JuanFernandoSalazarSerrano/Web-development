@@ -29,8 +29,10 @@ export class CartApp implements OnInit {
     private service: ProductService,
     private router: Router) {
 
-      this.store.select(store => store.items).subscribe(state =>
+      this.store.select(store => store.items).subscribe(state =>{
         this.items = state.items
+        this.saveSession()
+      }
       )
   }
 
@@ -64,7 +66,6 @@ export class CartApp implements OnInit {
 
       this.store.dispatch(onAddCart({product}))
 
-      this.saveSession()
 
       this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
 
@@ -99,7 +100,6 @@ export class CartApp implements OnInit {
 
               Swal.fire({title:'Shopping', text: removedItem.product.name + " has been deleted from the cart", icon: 'error'});
 
-              this.saveSession()
 
               this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
 

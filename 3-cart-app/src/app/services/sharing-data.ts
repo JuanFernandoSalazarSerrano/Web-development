@@ -7,13 +7,13 @@ import { CartItem } from '../models/cartItem';
 })
 export class SharingData {
 
-  private _idProductEventEmitter: EventEmitter<number> = new EventEmitter();
+  private readonly _idProductEventEmitter: EventEmitter<number> = new EventEmitter();
 
-  private _ProductEventEmitter: EventEmitter<Product> = new EventEmitter();
+  private readonly _ProductEventEmitter: EventEmitter<Product> = new EventEmitter();
 
-  private _productEventEmitterClearCart: EventEmitter<void> = new EventEmitter<void>();
+  private readonly _productEventEmitterClearCart: EventEmitter<void> = new EventEmitter<void>();
 
-  private _productEventEmitterDecrease: EventEmitter<Product> = new EventEmitter<Product>();
+  private readonly _productEventEmitterDecrease: EventEmitter<Product> = new EventEmitter<Product>();
 
   constructor() {
 
