@@ -12,7 +12,7 @@ import { ProductService } from '../../services/productService';
 })
 export class Catalog implements OnInit {
 
-    @Input() products!: Product[];
+    products: Product[] = [];
 
     constructor(
       private SharingService: SharingData,
@@ -31,6 +31,7 @@ export class Catalog implements OnInit {
   ngOnInit(): void {
     if (!this.products){
       this.products = this.productService.findAll();
+
     }
   }
 

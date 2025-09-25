@@ -2,10 +2,13 @@ import { SharingData } from './../services/sharing-data';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/productService';
 import { Product } from '../models/product';
-import { CartItem } from '../models/cartItem';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule} from '@angular/router';
 import Swal from 'sweetalert2'
+import { Store } from '@ngrx/store';
+import { onAddCart, onDeleteCart } from '../store/items.action';
+import { ItemState } from '../store/items.reducer';
+import { CartItem } from '../models/cartItem';
 
 @Component({
   selector: 'cart-app',
@@ -21,9 +24,14 @@ export class CartApp implements OnInit {
   quantity: number = 1;
 
   constructor(
+    private store: Store<{items: ItemState}>,
     private SharingDataService: SharingData,
     private service: ProductService,
     private router: Router) {
+
+      this.store.select(store => store.items).subscribe(state =>
+        this.items = state.items
+      )
   }
 
   ngOnInit(): void {
@@ -54,36 +62,13 @@ export class CartApp implements OnInit {
 
     this.SharingDataService.ProductEventEmitter.subscribe(product => {
 
+      this.store.dispatch(onAddCart({product}))
 
-// The find() method returns the value of the first element that passes a test.
-// The find() method executes a function for each array element.
+      this.saveSession()
 
-    const hasItem = this.items.find(item => item.product.id === product.id);
+      this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
 
-// In your code, item is a variable representing each element of the items array.
-
-    if (hasItem) {
-
-      this.items = this.items.map(item => {
-
-        if (item.product.id === product.id){
-          return {
-            ...item,
-            quantity: item.quantity + 1
-          }
-        }
-        return item
-      })
-    }
-    else{
-      Swal.fire({title:'Shopping', text: product.name + " has been added to the cart", icon: 'success'});
-      this.items = [...this.items, { product: {...product}, quantity: this.quantity }];
-    }
-    this.saveSession()
-
-          this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
-
-        this.router.navigate(['/cart'],{state: {items:this.items}})
+      this.router.navigate(['/cart'],{state: {items:this.items}})
 
       })
 
@@ -92,40 +77,40 @@ export class CartApp implements OnInit {
 
   onDeleteCart(): void {
 
-      this.SharingDataService.idProductEventEmitter.subscribe(id => {
+        this.SharingDataService.idProductEventEmitter.subscribe(id => {
 
-      const removedItem = this.items.find(item => item.product.id === id);
+        const removedItem = this.items.find(item => item.product.id === id);
 
-      if (removedItem) {
+        if (removedItem) {
 
-        Swal.fire({
+          Swal.fire({
 
-          title: "Are you sure you want to delete this product from the cart?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-          if (result.isConfirmed) {
+            title: "Are you sure you want to delete this product from the cart?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
 
-            this.items = this.items.filter(item => item.product.id !== id);
+              this.store.dispatch(onDeleteCart({id}))
 
-            Swal.fire({title:'Shopping', text: removedItem.product.name + " has been deleted from the cart", icon: 'error'});
+              Swal.fire({title:'Shopping', text: removedItem.product.name + " has been deleted from the cart", icon: 'error'});
 
-            this.saveSession()
+              this.saveSession()
 
-            this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
+              this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
 
-              this.router.navigate(['/cart'],{state: {items:this.items}})
+                this.router.navigate(['/cart'],{state: {items:this.items}})
 
-              })
+                })
 
-          }
-        });
+            }
+          });
 
-      }
+        }
 
 
 
