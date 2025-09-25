@@ -6,7 +6,7 @@ import {
   getDOM,
   parseCookieValue,
   setRootDomAdapter
-} from "./chunk-E4WXIYEE.js";
+} from "./chunk-KDRKJHOI.js";
 import {
   ANIMATIONS_DISABLED,
   APP_BOOTSTRAP_LISTENER,
@@ -29,7 +29,6 @@ import {
   MAX_ANIMATION_TIMEOUT,
   NgModule,
   NgZone,
-  Observable,
   Optional,
   PLATFORM_ID,
   PLATFORM_INITIALIZER,
@@ -60,11 +59,8 @@ import {
   bypassSanitizationTrustStyle,
   bypassSanitizationTrustUrl,
   computed,
-  concatMap,
   createPlatformFactory,
   encapsulateResourceError,
-  filter,
-  finalize,
   formatRuntimeError,
   forwardRef,
   getAnimationElementRemovalRegistry,
@@ -73,15 +69,12 @@ import {
   linkedSignal,
   makeEnvironmentProviders,
   makeStateKey,
-  map,
-  of,
   performanceMarkFeature,
   platformCore,
   runInInjectionContext,
   setClassMetadata,
   setDocument,
   signal,
-  switchMap,
   truncateMiddle,
   unwrapSafeValue,
   withDomHydration,
@@ -92,7 +85,16 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-VQJC2CED.js";
+} from "./chunk-KOABHM7R.js";
+import {
+  Observable,
+  concatMap,
+  filter,
+  finalize,
+  map,
+  of,
+  switchMap
+} from "./chunk-4IFB7JBB.js";
 import {
   __async,
   __name,
@@ -4905,4 +4907,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-4ZLVB26E.js.map
+//# sourceMappingURL=chunk-7RBFLT5J.js.map
